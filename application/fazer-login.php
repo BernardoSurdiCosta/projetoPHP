@@ -11,26 +11,22 @@
     // Se passou pela validação, continua a partir daqui
 
     // Conexão com Banco de Dados
-    $strConnection = "mysql:host=localhost;dbname=db_produtos";
-    $db_usuario = 'root';
-    $db_senha = 'senai';
-    $conexao = new PDO($strConnection, $db_usuario, $db_senha);
-
-    // Executar consulta no BD
-    $sql = 'SELECT * FROM usuarios WHERE usuario=:user AND senha=:pass';
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindParam(':user', $usuario);
-    $stmt->bindParam(':pass', $senha);
-    $stmt->execute();
+    require_once 'class/BancoDeDados.php';
+    $banco = new BancoDeDados;
+    $banco->conectar();
+    $sql = 'SELECT * FROM usuarios WHERE usuario=? AND senha=?';
+    $params = [$usuario, $senha];
+    //var_dump($params);
+    $dados = $banco->buscarUm($sql, $params);
 
     // Verificar se a consulta no BD retornou pelo menos um linha
-    if ($stmt->rowCount() > 0) {
-        // Abrindo uma sessão
+    if (is_array($dados)) {
 		session_start();
+		$_SESSION['id_usuario'] = $dados['id_usuario'];
+		$_SESSION['nome'] = $dados['nome'];
 		$_SESSION['logado'] = TRUE;
 
-        // Encaminhando usuário para o Sistema
-        header('LOCATION: ../sistema.php');
+        header('LOCATION: ../cadastro-produtos.php');
     } else {
         echo '<script> 
                 alert("Usuário ou senha inválidos. Verifique!");

@@ -34,35 +34,32 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php
 
-                    $strConnection = "mysql:host=localhost;dbname=db_produtos";
-                    $db_usuario = 'root';
-                    $db_senha = 'senai';
-                    $conexao = new PDO($strConnection, $db_usuario, $db_senha);
-
+                    require_once 'application/class/BancoDeDados.php';
+                    $meuBD = new BancoDeDados;
+                    $meuBD->conectar();
                     $sql = 'SELECT * FROM produtos';
-                    
-                    $stmt = $connexao->prepare($sql);
-                    $stmt->execute();
-                    $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                     
-                ?>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="application/uploads/foto_produto_2023-06-19_14-21-28.jpg" alt="" width="100%" height="225">
-                            <div class="card-body">
-                                <p class="card-text">Descrição:</p>
-                                <p class="card-text">Preço:</p>
-                                <p class="card-text">Estoque:</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"><i class="bi bi-hand-thumbs-up-fill"></i></button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary"><i class="bi bi-hand-thumbs-down-fill"></i></button>
+                    $dados = $meuBD->buscarTodos($sql);
+
+                    foreach ($dados as $linha) {
+                        echo "<div class='col'>
+                                <div class='card shadow-sm'>
+                                    <img src='application/uploads/{$linha['imagem']}' alt='' width='100%' height='225'>
+                                    <div class='card-body'>
+                                        <p class='card-text'>Descrição: <strong>{$linha['nome']}</strong></p>
+                                        <p class='card-text'>Preço: <strong>R$".number_format($linha['preco_venda'],2,',','.') ."</strong></p>
+                                        <p class='card-text'>Estoque: <strong>{$linha['qtd_estoque']}</strong></p>
+                                        <div class='d-flex justify-content-between align-items-center'>
+                                            <div class='btn-group'>
+                                                <button type='button' class='btn btn-sm btn-outline-secondary'><i class='bi bi-hand-thumbs-up-fill'></i>{$linha['likes']}</button>
+                                                <button type='button' class='btn btn-sm btn-outline-secondary'><i class='bi bi-hand-thumbs-down-fill'></i></button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <small class="text-body-secondary">...</small>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </div>";
+                    }
+                ?>
+                    
 
                 </div>
             </div>
