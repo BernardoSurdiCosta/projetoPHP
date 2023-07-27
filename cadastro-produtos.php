@@ -1,44 +1,20 @@
-<?php
-  // Controle de sessão
-  session_start();
-	if (!isset($_SESSION['logado'])) {
-		header('LOCATION: login.php');
-	}
-?>
 
-<!doctype html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastro de Produto - SISTEMA</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/home.css">
-
-  <!-- Boostrap -->
-  <link rel="stylesheet" href="vendor/bootstrap-5.3.0-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="vendor/bootstrap-5.3.0-dist/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="vendor/bootstrap-5.3.0-dist/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="vendor/bootstrap-5.3.0-dist/css/bootstrap-utilities.min.css">
-</head>
-<body class="bg-body-tertiary">
-  <div class="container">
-    <main>
-      <div class="py-5 text-center">
-        <h2>CADASTRO DE PRODUTO</h2>
-      </div>
 
       <div class="row g-5">
-        <div class="col-md-12">
+      <div class="col-md-6 col-lg-6 order-md-last">
+        <h4 class="mb-3">Imagem do Produto</h4>
+        <img src="">
+      </div>
+        <div class="col-md-6 col-lg-6">
+          <h4 class="mb-3">Cadastro de Produtos</h4>
           <form action="application/inserir-produto.php" method="POST" enctype="multipart/form-data">
             <div class="row g-3">
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <label for="txtID" class="form-label">ID</label>
                 <input type="text" class="form-control" id="txtID" name="txtID" readonly value="NOVO">
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-sm-9">
                 <label for="txtNome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="txtNome" name="txtNome">
               </div>
@@ -74,20 +50,3 @@
           </form>
         </div>
       </div>
-    </main>
-
-    <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-      <p class="mb-1">Projeto SA</p>
-    </footer>
-  </div>
-  
-    <!-- Scripts -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="vendor/jquery-3.7.0/jquery-3.7.0.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script type="text/javascript" src="vendor/bootstrap-5.3.0-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="vendor/bootstrap-5.3.0-dist/js/bootstrap-esm.min.js"></script>
-    <script type="text/javascript" src="vendor/bootstrap-5.3.0-dist/js/bootstrap-bundle.min.js"></script>
-</body>
-</html>
