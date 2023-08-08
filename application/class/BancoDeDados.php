@@ -45,7 +45,7 @@
         public function inserir($sql, $param = []){
             try{
                 $stmt = $this->conexao->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($param);
                 return TRUE;
             }catch(PDOException $error){
                 throw new ErrorException($error->getMessage());
@@ -56,7 +56,7 @@
         public function deletar($sql, $param = []){
             try{
                 $stmt = $this->conexao->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($param);
                 return TRUE;
             }catch(PDOException $error){
                 throw new ErrorException($error->getMessage());
@@ -67,7 +67,7 @@
         public function atualizar($sql, $param = []){
             try{
                 $stmt = $this->conexao->prepare($sql);
-                $stmt->execute();
+                $stmt->execute($param);
                 return TRUE;
             }catch(PDOException $error){
                 throw new ErrorException($error->getMessage());
